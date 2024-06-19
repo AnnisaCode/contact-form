@@ -11,15 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // Mengirim email menggunakan MailDev (lokasi default)
-    $to = "youremail@gmail.com"; // Ganti dengan alamat email penerima yang valid
+    // Validasi nama dan pesan tidak boleh kosong
+    if (empty($name) || empty($message)) {
+        echo "Name and message are required";
+        exit;
+    }
+
+    // Mengirim email
+    $to = "rum@gmail.com"; // Ganti dengan alamat email penerima yang valid
     $subject = "New Contact Form Submission";
     $body = "Name: $name\nEmail: $email\n\nMessage:\n$message";
     $headers = "From: $email";
-
-    // Pengaturan untuk MailDev
-    // ini_set("SMTP", "localhost");
-    // ini_set("smtp_port", "1025");
 
     // Kirim email
     if (mail($to, $subject, $body, $headers)) {
@@ -30,4 +32,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo "Invalid request method.";
 }
-?>
